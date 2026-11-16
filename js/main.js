@@ -45,6 +45,8 @@
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    ok.classList.remove("is-visible");
+    err.classList.remove("is-visible");
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
