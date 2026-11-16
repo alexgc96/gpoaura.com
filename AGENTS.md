@@ -4,30 +4,32 @@ Guidance for AI coding agents (Claude, Indy, Nedry, analogcode sessions) working
 
 ## Project
 
-Static, no-build landing page for Grupo Aura (insurance promotoría, owner Ramon Garcia), replacing the dead Wix site on the existing domain gpoaura.com. Courtesy add-on to the Aura portal project, so keep it small and keep time spent on it low.
+Landing page for Aura Seguros (insurance promotoría in Guadalajara, owner Ramon Garcia, also called Grupo Aura), replacing the dead Wix site on the existing domain gpoaura.com. Static HTML/CSS plus one small PHP contact-form endpoint. Courtesy add-on to the Aura portal project, so keep it small and keep time spent on it low.
 
 This is NOT the landing page for the new persona-moral promotoría; that one is a separate project and lives elsewhere.
 
-- Stack: vanilla HTML5 + CSS (+ JS only if needed). No bundler, framework, package manifest or dependencies. Fonts self-hosted.
+- Stack: vanilla HTML5 + CSS, minimal JS, and plain PHP for the contact form only (`contacto.php` or similar). No bundler, framework, Composer or npm dependencies unless asked. Fonts self-hosted.
 - Language: Spanish (es-MX). Copy is Spanish in the markup.
-- Branding: follow Grupo Aura's existing branding (logos supplied by the client, low-res; vectorized versions go in `img/`). Do not invent a new brand.
-- Hosting: Cloudflare Pages, Git integration, production branch `main`. Preview via GitHub Pages is planned, so assume relative or root-safe paths that work in both places.
-- Mail for gpoaura.com is on Google Workspace and is not part of this repo. Never touch MX/SPF/DKIM guidance here beyond what the intranet task says.
+- Branding: the visible brand is "aura SEGUROS" (navy and orange crescent mark, gold wordmark line). Design source is a Claude Design mockup (desktop, mobile and brand boards); the link is in the intranet project hub, not in this repo. Palette: navy `#2A4496` / `#1B2E7B` / `#14245E`, orange `#EB8330`, gold `#C99A3F` / `#D6A33A`. Type: Nunito (headings) and Nunito Sans (body). Do not invent a new brand. Client logos are low-res; use the SVG recreation of the mark, and vectorized files go in `img/`.
+- Services shown: Auto, Vida, Salud. More (for example Hogar) may be added after Alex's call with the client; do not add services that are not confirmed.
+- Hosting: Alex's VPS (nginx + php-fpm), VPS1 first, possibly VPS2 after the Aura advance lands. Cloudflare is used for DNS only (A record to the VPS), not Cloudflare Pages, because of the PHP form. Preview via GitHub Pages is planned for the static part only; the form will not work there, so it must fail visibly, not silently.
+- Contact form: name + WhatsApp/phone. Validate and sanitize server-side, add a honeypot (or Turnstile), rate-limit, send mail to a recipient set in config. Mail for gpoaura.com is on Google Workspace; the form sends from the VPS, so SPF/DKIM for the VPS are a deploy concern, not a code one.
+- Mail/DNS for gpoaura.com (Google Workspace MX/SPF) is not part of this repo. Never change guidance on it beyond what the intranet task says.
 
 ## Treat this repo as public
 
 It is private now (`alexgc96`) but will go public for the GitHub Pages preview. So never commit:
 
-- Secrets, `.env`, credentials, API tokens, registrar or DNS logins.
+- Secrets, `.env`, credentials, API tokens, registrar or DNS logins, SMTP passwords, the form's recipient address. These go in a gitignored `config.php`; commit only `config.example.php` with dummy values.
 - Client personal data: personal phone numbers, emails, WhatsApp chats, screenshots of accounts. Contact details that appear on the live site are fine only when Ramon has approved them for publication.
 - Pricing, quotes, invoices or internal project notes. Those live in the intranet.
 - Original low-res logo dumps with metadata. Strip EXIF/metadata from images.
 
 ## Essential commands
 
-- Local preview: `npx serve .` (strips `.html` like Cloudflare Pages does).
-- Deploy: push to `main`; Cloudflare Pages builds. No build/test/lint scripts exist; verify by opening the pages in a browser (desktop + phone width, light/dark if themed).
-- If a build command or output dir is added later, document it in the README.
+- Local preview: `php -S localhost:8000` from the repo root (serves the static pages and the PHP form).
+- Deploy: manual on the VPS for now (nginx + php-fpm, web root = repo contents minus dev files). Alex does the deploy; agents never ssh to servers unless asked. Document the exact steps in the README once the VPS exists.
+- No build/test/lint scripts exist; verify by opening the pages in a browser (desktop + phone width) and by submitting the form locally (valid, invalid, honeypot filled). If you could not, say "not run".
 
 ## How we work
 
@@ -64,9 +66,10 @@ It is private now (`alexgc96`) but will go public for the GitHub Pages preview. 
 - Mobile first; the audience opens this from WhatsApp links on phones.
 - Semantic HTML, one `<h1>`, alt text on every image, `lang="es"` on `<html>`.
 - Include `<title>`, meta description, canonical, Open Graph tags, `favicon`, `robots.txt`; `sitemap.xml` for any multi-page layout. Canonical host is the bare `gpoaura.com` unless Alex says otherwise.
-- Cloudflare Pages `_headers`: keep `*.pages.dev` out of search results (`X-Robots-Tag: noindex`), and cache images conservatively. Replacing an image under the same filename leaves the edge on old bytes; give new files new names.
+- Caching and security headers (nginx) are set on the server, not in the repo. Cache images conservatively and give replaced images new filenames. The GitHub Pages preview, if used, must be noindex.
 - Logos: SVG if vectorized cleanly, otherwise the best raster at 2x with a transparent background. Never upscale the low-res originals and ship them as is.
-- Do not add third-party fonts, trackers, analytics or embeds without asking.
+- Fonts are self-hosted (Nunito and Nunito Sans, OFL; latin + latin-ext only, woff2 in `fonts/`, `@font-face` in `css/fonts.css`). The mockup loads them from Google Fonts; do not copy that `<link>` into the site.
+- Do not add third-party trackers, analytics or embeds without asking.
 
 ## Reporting
 

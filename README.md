@@ -1,17 +1,19 @@
 # gpoaura.com
 
-Static landing page for Grupo Aura, an insurance promotoría. Simple site, a courtesy add-on to Ramon Garcia's insurance portal project. It replaces the old Wix site on gpoaura.com.
+Landing page for Aura Seguros (Grupo Aura), an insurance promotoría in Guadalajara. Courtesy add-on to Ramon Garcia's insurance portal project. It replaces the old Wix site on gpoaura.com.
 
-Plain HTML/CSS, no build step.
+Static HTML/CSS with one small PHP contact form. No build step, no dependencies.
 
 ## Run
 
 ```
-npx serve .
+php -S localhost:8000
 ```
+
+Copy `config.example.php` to `config.php` and fill in the form settings (gitignored).
 
 ## Deploy
 
-Cloudflare Pages, Git integration, production branch `main`. No build command; output dir is the repo root.
+VPS (nginx + php-fpm), deployed manually by Alex. DNS is on Cloudflare (DNS only, A record to the VPS). Exact steps TBD once the server exists.
 
 Agents: read `AGENTS.md` first.
