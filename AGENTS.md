@@ -64,6 +64,7 @@ It is private now (`alexgc96`) but will go public for the GitHub Pages preview. 
 ## Conventions
 
 - Mobile first; the audience opens this from WhatsApp links on phones.
+- WhatsApp: the three card links and the floating button use `https://wa.me/WA_NUMBER?text=...`. `WA_NUMBER` stays a placeholder until Ramon approves a number; never fill it from chats or notes.
 - Semantic HTML, one `<h1>`, alt text on every image, `lang="es"` on `<html>`.
 - Include `<title>`, meta description, canonical, Open Graph tags, `favicon`, `robots.txt`; `sitemap.xml` for any multi-page layout. Canonical host is the bare `gpoaura.com` unless Alex says otherwise.
 - Caching and security headers (nginx) are set on the server, not in the repo. Cache images conservatively and give replaced images new filenames. The GitHub Pages preview, if used, must be noindex.
