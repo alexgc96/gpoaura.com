@@ -1,0 +1,66 @@
+# Example nginx server blocks for gpoaura.com (nginx + php-fpm). Not used by the site itself: copy,
+# adjust paths, the php-fpm socket and the TLS certificate paths, then `nginx -t`.
+# Mind nginx's add_header inheritance: a location that sets its own add_header drops the server-level ones,
+# so locations below use `expires` instead.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name gpoaura.com www.gpoaura.com;
+    location ^~ /.well-known/acme-challenge/ { root /var/www/gpoaura.com; }
+    location / { return 301 https://gpoaura.com$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name www.gpoaura.com;
+    ssl_certificate     /etc/letsencrypt/live/gpoaura.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/gpoaura.com/privkey.pem;
+    return 301 https://gpoaura.com$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name gpoaura.com;
+
+    ssl_certificate     /etc/letsencrypt/live/gpoaura.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/gpoaura.com/privkey.pem;
+
+    root /var/www/gpoaura.com;
+    index index.html;
+    error_page 404 /404.html;
+
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'" always;
+
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml;
+
+    # Certbot webroot challenges must stay reachable; every other dotfile is hidden.
+    location ^~ /.well-known/ { allow all; }
+
+    # The only PHP the site runs: the contact form, POST only.
+    location = /contacto.php {
+        limit_except POST { deny all; }
+        client_max_body_size 8k;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+    }
+    location ~ \.php$ { return 404; }
+
+    # Repo files that must never be served. Keep leads.jsonl outside the web root anyway (see config.example.php).
+    location ~ ^/(\.|deploy/|leads/|config|AGENTS|README|CODEOWNERS) { return 404; }
+
+    location /fonts/ { expires 1y; }
+    location /img/   { expires 7d; }
+
+    location / { try_files $uri $uri/ =404; }
+}
