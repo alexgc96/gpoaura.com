@@ -164,7 +164,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .logos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 16px; width: 100%; }
 .logo-slot { display: flex; align-items: center; justify-content: center; height: 84px; border: 1.5px dashed var(--field); border-radius: 16px; font-family: var(--font-head); font-weight: 700; font-size: 14px; letter-spacing: .14em; color: var(--muted); }
 
-.cta { background: var(--orange); padding-block: 48px; }
+.cta { background: #fff; padding-block: 48px; }
 .cta .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 40px; }
 .cta__copy { flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px; }
 .cta h2 { font-size: 32px; line-height: 1.1; color: var(--navy-900); }
