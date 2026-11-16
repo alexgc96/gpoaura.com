@@ -1,28 +1,25 @@
 # AGENTS.md
 
-Guidance for AI coding agents (Claude, Indy, Nedry, analogcode sessions) working in this repo. The README and the code are the source of truth: trust them over your assumptions.
+Guidance for AI coding agents working in this repo. The README and the code are the source of truth: trust them over your assumptions.
 
 ## Project
 
-Landing page for Aura Seguros (insurance promotoría in Guadalajara, owner Ramon Garcia, also called Grupo Aura), replacing the dead Wix site on the existing domain gpoaura.com. Static HTML/CSS plus one small PHP contact-form endpoint. Courtesy add-on to the Aura portal project, so keep it small and keep time spent on it low.
-
-This is NOT the landing page for the new persona-moral promotoría; that one is a separate project and lives elsewhere.
-
+Landing page for Aura Seguros, an insurance promotoría in Guadalajara, on the domain gpoaura.com. Static HTML/CSS plus one small PHP contact-form endpoint. Keep it small.
 - Stack: vanilla HTML5 + CSS, minimal JS, and plain PHP for the contact form only (`contacto.php` or similar). No bundler, framework, Composer or npm dependencies unless asked. Fonts self-hosted.
 - Language: Spanish (es-MX). Copy is Spanish in the markup.
-- Branding: the visible brand is "aura SEGUROS" (navy and orange crescent mark, gold wordmark line). Design source is a Claude Design mockup (desktop, mobile and brand boards); the link is in the intranet project hub, not in this repo. Palette: navy `#2A4496` / `#1B2E7B` / `#14245E`, orange `#EB8330`, gold `#C99A3F` / `#D6A33A`. Type: Nunito (headings) and Nunito Sans (body). Do not invent a new brand. Client logos are low-res; use the SVG recreation of the mark, and vectorized files go in `img/`.
-- Services shown: Auto, Vida, Salud. More (for example Hogar) may be added after Alex's call with the client; do not add services that are not confirmed.
-- Hosting: Alex's VPS (nginx + php-fpm), VPS1 first, possibly VPS2 after the Aura advance lands. DNS stays at the registrar (Squarespace Domains): the Wix nameservers get replaced by Squarespace's own, and the A record points at the VPS. No Cloudflare involved, because of the PHP form. Preview via GitHub Pages is planned for the static part only; the form will not work there, so it must fail visibly, not silently.
-- Contact form: name + WhatsApp/phone. Validate and sanitize server-side, add a honeypot (or Turnstile), rate-limit, send mail to a recipient set in config. Mail for gpoaura.com is on Google Workspace; the form sends from the VPS, so SPF/DKIM for the VPS are a deploy concern, not a code one.
-- Mail/DNS for gpoaura.com (Google Workspace MX/SPF) is not part of this repo. Never change guidance on it beyond what the intranet task says.
+- Branding: the visible brand is "aura SEGUROS" (navy and orange crescent mark, gold wordmark line). Design source is a mockup (desktop, mobile and brand boards) kept outside this repo. Palette: navy `#2A4496` / `#1B2E7B` / `#14245E`, orange `#EB8330`, gold `#C99A3F` / `#D6A33A`. Type: Nunito (headings) and Nunito Sans (body). Do not invent a new brand. Client logos are low-res; use the SVG recreation of the mark, and vectorized files go in `img/`.
+- Services shown: Auto, Vida, Salud. More (for example Hogar) may be added after Alex talks with the client; do not add services that are not confirmed.
+- Hosting: a VPS (nginx + php-fpm), because of the PHP form. Preview via GitHub Pages is planned for the static part only; the form will not work there, so it must fail visibly, not silently.
+- Contact form: name + WhatsApp/phone. Validate and sanitize server-side, add a honeypot (or Turnstile), rate-limit, send mail to a recipient set in config. The form sends from the VPS, so SPF/DKIM for the sending server are a deploy concern, not a code one.
+- DNS and the domain's mail setup are not part of this repo.
 
 ## Treat this repo as public
 
-It is private now (`alexgc96`) but will go public for the GitHub Pages preview. So never commit:
+It will be public (GitHub Pages preview). So never commit:
 
 - Secrets, `.env`, credentials, API tokens, registrar or DNS logins, SMTP passwords, the form's recipient address. These go in a gitignored `config.php`; commit only `config.example.php` with dummy values.
-- Client personal data: personal phone numbers, emails, WhatsApp chats, screenshots of accounts. Contact details that appear on the live site are fine only when Ramon has approved them for publication.
-- Pricing, quotes, invoices or internal project notes. Those live in the intranet.
+- Client personal data: personal phone numbers, emails, WhatsApp chats, screenshots of accounts. Contact details that appear on the live site are fine only when the client has approved them for publication.
+- Pricing, quotes, invoices, client names or internal project notes. Those live elsewhere.
 - Original low-res logo dumps with metadata. Strip EXIF/metadata from images.
 
 ## Essential commands
@@ -59,12 +56,12 @@ It is private now (`alexgc96`) but will go public for the GitHub Pages preview. 
 ```
 
 - End the description with your harness's attribution/session link, if it provides one.
-- Anything client-facing (copy, logo, phone, address) must be flagged in the PR as "needs client OK" if Ramon has not confirmed it.
+- Anything client-facing (copy, logo, phone, address) must be flagged in the PR as "needs client OK" if the client has not confirmed it.
 
 ## Conventions
 
 - Mobile first; the audience opens this from WhatsApp links on phones.
-- WhatsApp: the three card links and the floating button use `https://wa.me/WA_NUMBER?text=...`. `WA_NUMBER` stays a placeholder until Ramon approves a number; never fill it from chats or notes.
+- WhatsApp: the three card links and the floating button use `https://wa.me/WA_NUMBER?text=...`. `WA_NUMBER` stays a placeholder until the client approves a number; never fill it from chats or notes.
 - Semantic HTML, one `<h1>`, alt text on every image, `lang="es"` on `<html>`.
 - Include `<title>`, meta description, canonical, Open Graph tags, `favicon`, `robots.txt`; `sitemap.xml` for any multi-page layout. Canonical host is the bare `gpoaura.com` unless Alex says otherwise.
 - Caching and security headers (nginx) are set on the server, not in the repo. Cache images conservatively and give replaced images new filenames. The GitHub Pages preview, if used, must be noindex.
