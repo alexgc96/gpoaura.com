@@ -31,6 +31,7 @@ VPS (nginx + php-fpm), deployed manually by Alex. DNS lives at the registrar (Sq
 4. Real `config.php` on the server (recipient, `send_mail` true, `leads_path` outside the web root).
 5. SPF and DKIM cover the VPS IP (merge into the existing Google SPF, don't replace it), and a real submission lands in the inbox.
 6. Insurer-logo strip replaced with approved logos, or removed.
-7. `og:image` and an `og-preview.png` are still to do.
+7. Replace `WA_NUMBER` in every `wa.me` link (index.html: three card links and the floating button) with Ramon's approved WhatsApp number: country code + number, digits only, for example `523312345678`. `grep -n WA_NUMBER index.html` must print nothing.
+8. `og:image` and an `og-preview.png` are still to do.
 
 Agents: read `AGENTS.md` first.
