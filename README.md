@@ -14,6 +14,6 @@ Copy `config.example.php` to `config.php` and fill in the form settings (gitigno
 
 ## Deploy
 
-VPS (nginx + php-fpm), deployed manually by Alex. DNS is on Cloudflare (DNS only, A record to the VPS). Exact steps TBD once the server exists.
+VPS (nginx + php-fpm), deployed manually by Alex. DNS lives at the registrar (Squarespace Domains), with an A record to the VPS. Exact steps TBD once the server exists.
 
 Agents: read `AGENTS.md` first.
