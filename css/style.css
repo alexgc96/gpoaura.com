@@ -25,7 +25,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
@@ -67,7 +67,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .btn[disabled] { opacity: .7; cursor: progress; }
 
 /* Header */
-.site-header { background: #fff; border-bottom: 1px solid var(--line); }
+/* Sticky header: it stays at the top while scrolling; scroll-padding-top on html keeps anchors clear of it. */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: #fff; border-bottom: 1px solid var(--line);
+  box-shadow: 0 8px 24px -16px rgba(20, 36, 94, .35);
+}
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; padding-block: 12px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand__mark { display: block; flex: none; width: 44px; height: 44px; }
@@ -78,15 +83,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .nav__list { display: none; list-style: none; margin: 0; padding: 0; }
 .nav.is-open .nav__list {
   display: flex; flex-direction: column; gap: 4px; align-items: stretch;
-  position: absolute; left: 0; right: 0; top: 73px; z-index: 5;
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 5;
   background: #fff; border-bottom: 1px solid var(--line); padding: 12px var(--gutter) 20px;
 }
-.nav { position: static; }
 .nav__list a:not(.btn) {
   display: flex; align-items: center; min-height: 44px;
   font-weight: 600; color: var(--navy-700); text-decoration: none;
 }
-.site-header { position: relative; }
 
 /* Hero */
 .hero { position: relative; overflow: hidden; background: var(--navy-900); }
@@ -186,6 +189,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 @media (min-width: 900px) {
   :root { --gutter: 32px; }
+  html { scroll-padding-top: 112px; }
   .site-header .wrap { min-height: 88px; }
   .nav__toggle { display: none; }
   .nav__list, .nav.is-open .nav__list {
