@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aura seguros · Promotoría de seguros en Guadalajara</title>
+<meta name="description" content="Seguros de auto, de vida y de salud en Guadalajara. Comparamos entre aseguradoras para darte la cobertura que sí necesitas y te acompañamos cuando la usas.">
+<!-- PRE-LAUNCH: remove this noindex when the placeholders are replaced (see README). -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14245e">
+<link rel="canonical" href="https://gpoaura.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="aura seguros">
+<meta property="og:title" content="aura seguros · Promotoría de seguros en Guadalajara">
+<meta property="og:description" content="Seguros de auto, de vida y de salud. Comparamos entre aseguradoras y te acompañamos cuando la usas.">
+<meta property="og:url" content="https://gpoaura.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="aura-cut" maskUnits="userSpaceOnUse" x="-10" y="-10" width="356" height="366">
+      <rect x="-10" y="-10" width="356" height="366" fill="#fff"/>
+      <circle cx="191.5" cy="253.5" r="91.5" fill="#000"/>
+    </mask>
+    <clipPath id="aura-disc"><circle cx="168" cy="168" r="168"/></clipPath>
+    <symbol id="aura-mark" viewBox="0 0 336 336">
+      <g mask="url(#aura-cut)">
+        <circle cx="168" cy="168" r="168" fill="var(--mark-outer, #2a4496)"/>
+        <g clip-path="url(#aura-disc)"><circle cx="176" cy="207" r="140" fill="#eb8330"/></g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="aura seguros, inicio">
+      <svg class="brand__mark" aria-hidden="true"><use href="#aura-mark"/></svg>
+      <span class="brand__name"><span class="brand__aura">aura</span><span class="brand__seguros">SEGUROS</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <button class="nav__toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-list">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <ul class="nav__list" id="nav-list">
+        <li><a href="#seguros">Seguros</a></li>
+        <li><a href="#como">Cómo trabajamos</a></li>
+        <li><a href="#nosotros">Por qué nosotros</a></li>
+        <li><a class="btn btn--primary btn--sm" href="#contacto">Cotizar</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="hero" id="inicio">
+  <svg class="hero__bg" aria-hidden="true" style="--mark-outer:#1d3487"><use href="#aura-mark"/></svg>
+  <div class="wrap">
+    <div class="hero__copy">
+      <p class="eyebrow">Promotoría de seguros · Guadalajara</p>
+      <h1>Tu tranquilidad, bien asegurada.</h1>
+      <p class="hero__lead">Seguros de auto, de vida y de salud. Comparamos entre aseguradoras para darte la cobertura que sí necesitas, y te acompañamos cuando llega el momento de usarla.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#contacto">Pedir mi cotización <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#seguros">Ver seguros</a>
+      </div>
+    </div>
+
+    <form class="form" id="contacto" action="contacto.php" method="post" novalidate>
+      <div>
+        <h2>Cotiza sin compromiso</h2>
+        <p class="form__sub">Te respondemos por WhatsApp o llamada, como prefieras.</p>
+      </div>
+      <p class="form__msg form__msg--ok" id="enviado" role="status">Listo, recibimos tu solicitud. Te contactamos muy pronto.</p>
+      <p class="form__msg form__msg--err" id="error" role="alert">No pudimos enviar tu solicitud. Revisa tus datos o escríbenos por WhatsApp.</p>
+      <div class="field">
+        <label for="f-nombre">Nombre</label>
+        <input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" required minlength="2" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="f-seguro">¿Qué seguro te interesa?</label>
+        <select id="f-seguro" name="seguro">
+          <option value="auto">Seguro de auto</option>
+          <option value="vida">Seguro de vida</option>
+          <option value="salud">Seguro de salud</option>
+          <option value="no-se">No lo sé aún</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-tel">WhatsApp o teléfono</label>
+        <input id="f-tel" name="telefono" type="tel" placeholder="33 0000 0000" autocomplete="tel" inputmode="tel" required maxlength="20">
+      </div>
+      <div class="hp" aria-hidden="true">
+        <label for="f-sitio">No llenar este campo</label>
+        <input id="f-sitio" name="sitio" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <input type="hidden" name="t" value="">
+      <button class="btn btn--primary btn--block" type="submit">Enviar y recibir cotización</button>
+      <p class="form__note">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+    </form>
+  </div>
+</section>
+
+<section class="section section--soft" id="seguros">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--blue">Nuestros seguros</p>
+      <h2>Protección para lo que más cuidas.</h2>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card__top">
+          <div class="card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-3.5l1.6-4.2A2 2 0 0 1 7.5 7h9a2 2 0 0 1 1.9 1.3L20 12.5V16"/><path d="M3 16h18v2.4a.6.6 0 0 1-.6.6H18.6a.6.6 0 0 1-.6-.6V17H6v1.4a.6.6 0 0 1-.6.6H3.6a.6.6 0 0 1-.6-.6z"/><path d="M4 12.5h16"/><circle cx="7.5" cy="14.6" r=".7"/><circle cx="16.5" cy="14.6" r=".7"/></svg></div>
+          <h3>Auto</h3>
+        </div>
+        <p>Cobertura amplia, limitada o solo responsabilidad civil. Te ayudamos a elegir deducible y coberturas que de verdad usarías, sin pagar de más.</p>
+        <a class="card__link" href="#contacto">Cotizar mi auto <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="card">
+        <div class="card__top">
+          <div class="card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.2c0 4.4-3 7.8-7 9.8-4-2-7-5.4-7-9.8V6l7-3z"/><path d="M12 15.6s-3.1-1.9-3.1-4.1a1.75 1.75 0 0 1 3.1-1.1 1.75 1.75 0 0 1 3.1 1.1c0 2.2-3.1 4.1-3.1 4.1z"/></svg></div>
+          <h3>Vida</h3>
+        </div>
+        <p>Protege el ingreso de tu familia y el futuro de quienes dependen de ti, con un plan armado a tu medida y a tu presupuesto.</p>
+        <a class="card__link" href="#contacto">Cotizar seguro de vida <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="card">
+        <div class="card__top">
+          <div class="card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.4A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/><path d="M7.5 12h2.6l1.2-2.2 1.8 4 1.2-1.8h2.2"/></svg></div>
+          <h3>Salud</h3>
+        </div>
+        <p>Gastos médicos mayores y acceso a buenos hospitales, con la letra chica explicada antes de que firmes, no después.</p>
+        <a class="card__link" href="#contacto">Cotizar seguro de salud <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy" id="nosotros">
+  <div class="wrap why">
+    <div class="why__intro">
+      <p class="eyebrow">Por qué una promotoría</p>
+      <h2>Una sola conversación. Varias aseguradoras.</h2>
+      <p>No estás atado a una marca. Trabajamos para ti, no para una póliza en particular.</p>
+    </div>
+    <ol class="why__list">
+      <li class="why__item"><span class="why__num">01</span><div><h3>Comparamos por ti</h3><p>Pides una cotización y recibes opciones de distintas aseguradoras, explicadas en claro.</p></div></li>
+      <li class="why__item"><span class="why__num">02</span><div><h3>Letra chica, en español</h3><p>Exclusiones, deducibles y periodos de espera: te los contamos antes de contratar.</p></div></li>
+      <li class="why__item"><span class="why__num">03</span><div><h3>Contigo cuando la usas</h3><p>Un siniestro o una renovación no se manejan solos. Te acompañamos en el trámite.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="como">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--blue">Cómo trabajamos</p>
+      <h2>De la duda a la póliza, en tres pasos.</h2>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="step__num" aria-hidden="true">1</span><h3>Cuéntanos qué necesitas</h3><p>Llenas el formulario o nos escribes por WhatsApp. Sin papeleo al inicio.</p></li>
+      <li class="step"><span class="step__num" aria-hidden="true">2</span><h3>Comparamos opciones</h3><p>Te mostramos las mejores alternativas y te decimos cuál recomendamos y por qué.</p></li>
+      <li class="step"><span class="step__num" aria-hidden="true">3</span><h3>Contratas y te acompañamos</h3><p>Nos encargamos del trámite y seguimos a tu lado en renovaciones y siniestros.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PRE-LAUNCH: placeholder logos so Ramon can review the look. Replace with approved insurer logos or delete the section. -->
+<section class="section section--soft insurers" aria-labelledby="aseguradoras">
+  <div class="wrap">
+    <h2 class="eyebrow eyebrow--blue" id="aseguradoras">Aseguradoras con las que trabajamos</h2>
+    <div class="logos">
+      <div class="logo-slot">[LOGO 1]</div>
+      <div class="logo-slot">[LOGO 2]</div>
+      <div class="logo-slot">[LOGO 3]</div>
+      <div class="logo-slot">[LOGO 4]</div>
+      <div class="logo-slot">[LOGO 5]</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta__copy">
+      <h2>¿Cuánto cuesta estar tranquilo?</h2>
+      <p>Cuéntanos qué quieres proteger y te respondemos con opciones claras.</p>
+    </div>
+    <a class="btn btn--navy" href="#contacto">Pedir mi cotización <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="brand" href="#inicio" aria-label="aura seguros, inicio">
+          <svg class="brand__mark" aria-hidden="true" style="--mark-outer:#fff"><use href="#aura-mark"/></svg>
+          <span class="brand__name"><span class="brand__aura">aura</span><span class="brand__seguros">SEGUROS</span></span>
+        </a>
+        <p>Promotoría de seguros en Guadalajara, Jalisco.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col"><h2>Seguros</h2><span>Auto</span><span>Vida</span><span>Salud</span></div>
+        <div class="footer__col"><h2>Contacto</h2><span>[TELÉFONO]</span><span>[WHATSAPP]</span><span>[CORREO]</span></div>
+        <div class="footer__col"><h2>Visítanos</h2><span>[DIRECCIÓN]</span><span>Guadalajara, Jalisco</span><span>[HORARIO]</span></div>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 [RAZÓN SOCIAL]. Todos los derechos reservados.</span>
+      <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

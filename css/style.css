@@ -115,8 +115,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font: inherit; font-size: 16px; color: var(--navy-700);
 }
 .form__note { font-size: 13px; color: var(--muted); line-height: 1.5; }
-.form__msg { margin: 0; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 15px; line-height: 1.4; }
-.form__msg[hidden] { display: none; }
+/* Shown by the redirect fragment (#enviado / #error) without JS, or by main.js via .is-visible. */
+.form__msg { display: none; margin: 0; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 15px; line-height: 1.4; }
+.form__msg:target, .form__msg.is-visible { display: block; }
 .form__msg--ok { background: #e6f4ea; color: var(--ok); }
 .form__msg--err { background: #fdecea; color: var(--err); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 336" width="336" height="336" role="img" aria-label="aura seguros">
+  <defs>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="-10" y="-10" width="356" height="366">
+      <rect x="-10" y="-10" width="356" height="366" fill="#fff"/>
+      <circle cx="191.5" cy="253.5" r="91.5" fill="#000"/>
+    </mask>
+    <clipPath id="disc"><circle cx="168" cy="168" r="168"/></clipPath>
+  </defs>
+  <g mask="url(#cut)">
+    <circle cx="168" cy="168" r="168" fill="#2a4496"/>
+    <g clip-path="url(#disc)"><circle cx="176" cy="207" r="140" fill="#eb8330"/></g>
+  </g>
+</svg>
