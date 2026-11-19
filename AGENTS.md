@@ -4,29 +4,29 @@ Guidance for AI coding agents working in this repo. The README and the code are 
 
 ## Project
 
-Landing page for Aura Seguros, an insurance promotoría in Guadalajara, on the domain gpoaura.com. Static HTML/CSS plus one small PHP contact-form endpoint. Keep it small.
-- Stack: vanilla HTML5 + CSS, minimal JS, and plain PHP for the contact form only (`contacto.php` or similar). No bundler, framework, Composer or npm dependencies unless asked. Fonts self-hosted.
+Landing page for Aura Seguros, an insurance promotoría in Guadalajara, on the domain gpoaura.com. Static HTML/CSS plus a little JS; the contact form opens a prefilled WhatsApp message. Keep it small.
+- Stack: vanilla HTML5 + CSS, and minimal JS. No PHP, bundler, framework, Composer or npm dependencies unless asked. Fonts self-hosted.
 - Language: Spanish (es-MX). Copy is Spanish in the markup.
 - Branding: the visible brand is "aura SEGUROS" (navy and orange crescent mark, gold wordmark line). Design source is a mockup (desktop, mobile and brand boards) kept outside this repo. Palette: navy `#2A4496` / `#1B2E7B` / `#14245E`, orange `#EB8330`, gold `#C99A3F` / `#D6A33A`. Type: Nunito (headings) and Nunito Sans (body). Do not invent a new brand. Client logos are low-res; use the SVG recreation of the mark, and vectorized files go in `img/`.
 - Services shown: Auto, Vida, Salud. More (for example Hogar) may be added after Alex talks with the client; do not add services that are not confirmed.
-- Hosting: a VPS (nginx + php-fpm), because of the PHP form. Preview via GitHub Pages is planned for the static part only; the form will not work there, so it must fail visibly, not silently.
-- Contact form: name + WhatsApp/phone. Validate and sanitize server-side, add a honeypot (or Turnstile), rate-limit, send mail to a recipient set in config. The form sends from the VPS, so SPF/DKIM for the sending server are a deploy concern, not a code one.
+- Hosting: a VPS with nginx serving static files (no PHP). The GitHub Pages preview works for the whole site, but the form and WhatsApp links stay disabled there while `WA_NUMBER` is a placeholder, so the form must fail visibly, not silently.
+- Contact form: nombre, seguro, optional detalles (free text, max 300 characters, with a no-health-data hint) and optional correo. No server: JS builds a `wa.me` text and opens WhatsApp. Keep the honeypot, clean the text before URL-encoding, and fail visibly when the number is a placeholder. The main promotoría landing (another repo) has its own PHP form; do not port it here.
 - DNS and the domain's mail setup are not part of this repo.
 
 ## Treat this repo as public
 
 It will be public (GitHub Pages preview). So never commit:
 
-- Secrets, `.env`, credentials, API tokens, registrar or DNS logins, SMTP passwords, the form's recipient address. These go in a gitignored `config.php`; commit only `config.example.php` with dummy values.
+- Secrets, `.env`, credentials, API tokens, registrar or DNS logins, SMTP passwords, and the client's WhatsApp number until launch (`WA_NUMBER` stays a placeholder in the repo; Alex puts the real one in at go-live).
 - Client personal data: personal phone numbers, emails, WhatsApp chats, screenshots of accounts. Contact details that appear on the live site are fine only when the client has approved them for publication.
 - Pricing, quotes, invoices, client names or internal project notes. Those live elsewhere.
 - Original low-res logo dumps with metadata. Strip EXIF/metadata from images.
 
 ## Essential commands
 
-- Local preview: `php -S localhost:8000` from the repo root (serves the static pages and the PHP form).
-- Deploy: manual on the VPS for now (nginx + php-fpm, web root = repo contents minus dev files). Alex does the deploy; agents never ssh to servers unless asked. Document the exact steps in the README once the VPS exists.
-- No build/test/lint scripts exist; verify by opening the pages in a browser (desktop + phone width) and by submitting the form locally (valid, invalid, honeypot filled). If you could not, say "not run".
+- Local preview: `python3 -m http.server 8000` from the repo root.
+- Deploy: manual on the VPS for now (nginx, static, web root = repo contents minus dev files). Alex does the deploy; agents never ssh to servers unless asked. Document the exact steps in the README once the VPS exists.
+- No build/test/lint scripts exist; verify by opening the pages in a browser (desktop + phone width) and by submitting the form (valid, invalid, honeypot filled, placeholder number). If you could not, say "not run".
 
 ## How we work
 
@@ -61,7 +61,7 @@ It will be public (GitHub Pages preview). So never commit:
 ## Conventions
 
 - Mobile first; the audience opens this from WhatsApp links on phones.
-- WhatsApp: the three card links and the floating button use `https://wa.me/WA_NUMBER?text=...`. `WA_NUMBER` stays a placeholder until the client approves a number; never fill it from chats or notes.
+- WhatsApp: the three card links and the floating button use `https://wa.me/WA_NUMBER?text=...`, and the form reads the number from `data-wa="WA_NUMBER"`. `WA_NUMBER` stays a placeholder until the client approves a number; never fill it from chats or notes.
 - Semantic HTML, one `<h1>`, alt text on every image, `lang="es"` on `<html>`.
 - Include `<title>`, meta description, canonical, Open Graph tags, `favicon`, `robots.txt`; `sitemap.xml` for any multi-page layout. Canonical host is the bare `gpoaura.com` unless Alex says otherwise.
 - Caching and security headers (nginx) are set on the server, not in the repo. Cache images conservatively and give replaced images new filenames. The GitHub Pages preview, if used, must be noindex.

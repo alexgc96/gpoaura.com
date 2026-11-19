@@ -1,4 +1,4 @@
-// Mobile menu toggle and contact form enhancement. Both are optional: the page and the form work without JS.
+// Mobile menu toggle and contact form. The page works without JS; the form needs it (the WhatsApp buttons do not).
 (function () {
   var nav = document.querySelector(".nav");
   var btn = nav && nav.querySelector(".nav__toggle");
@@ -24,16 +24,19 @@
   });
 })();
 
-// Contact form: fetch the PHP handler and show the result inline.
+// Contact form: no server. Builds a prefilled wa.me message from the fields and opens WhatsApp.
 (function () {
   var form = document.getElementById("contacto");
-  if (!form || !window.fetch) return;
+  if (!form) return;
   var ok = document.getElementById("enviado");
   var err = document.getElementById("error");
-  var btn = form.querySelector("button[type=submit]");
-  var stamp = form.querySelector("input[name=t]");
-  var errDefault = err.textContent;
-  if (stamp) stamp.value = String(Date.now());
+  var number = form.getAttribute("data-wa") || "";
+  var topics = {
+    auto: "cotizar un seguro de auto",
+    vida: "cotizar un seguro de vida",
+    salud: "cotizar un seguro de salud",
+    "no-se": "cotizar un seguro, aún no sé cuál me conviene"
+  };
 
   function show(el, text) {
     ok.classList.remove("is-visible");
@@ -43,42 +46,42 @@
     el.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
+  // A missing field reads as empty instead of throwing, so the handler never dies silently.
+  function value(name) {
+    var el = form.elements[name];
+    return el ? el.value : "";
+  }
+
+  // Collapse whitespace and drop control characters before the text goes into the URL.
+  function clean(value) {
+    return String(value || "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     ok.classList.remove("is-visible");
     err.classList.remove("is-visible");
+    // Honeypot: only bots fill it. Do nothing, no feedback.
+    if (value("sitio")) return;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    btn.disabled = true;
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { Accept: "application/json" }
-    })
-      .then(function (res) {
-        var type = res.headers.get("content-type") || "";
-        if (type.indexOf("application/json") === -1) {
-          // Static host (for example the GitHub Pages preview): there is no PHP to answer.
-          show(err, "El formulario no está disponible en esta vista previa.");
-          return;
-        }
-        return res.json().then(function (data) {
-          if (res.ok && data.ok) {
-            form.reset();
-            if (stamp) stamp.value = String(Date.now());
-            show(ok);
-          } else if (res.status === 422) {
-            show(err, "Revisa tu nombre y tu teléfono e inténtalo de nuevo.");
-          } else if (res.status === 429) {
-            show(err, "Demasiados intentos. Inténtalo más tarde o escríbenos por WhatsApp.");
-          } else {
-            show(err, errDefault);
-          }
-        });
-      })
-      .catch(function () { show(err, errDefault); })
-      .then(function () { btn.disabled = false; });
+    // Placeholder number (GitHub Pages preview, or WA_NUMBER not replaced yet): fail visibly.
+    if (!/^\d{10,15}$/.test(number)) {
+      show(err, "El formulario no está disponible en esta vista previa.");
+      return;
+    }
+    var name = clean(value("nombre"));
+    var details = Array.from(clean(value("detalles"))).slice(0, 300).join("");
+    var email = clean(value("correo"));
+    var topic = topics[value("seguro")] || topics["no-se"];
+    var text = "Hola, soy " + name + ". Me gustaría " + topic + ".";
+    if (details) text += " Detalles: " + details;
+    if (email) text += " Mi correo: " + email;
+    // Encode first: if it ever throws, the success message must not show.
+    var url = "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
+    show(ok);
+    window.location.href = url;
   });
 })();

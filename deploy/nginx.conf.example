@@ -1,5 +1,5 @@
-# Example nginx server blocks for gpoaura.com (nginx + php-fpm). Not used by the site itself: copy,
-# adjust paths, the php-fpm socket and the TLS certificate paths, then `nginx -t`.
+# Example nginx server blocks for gpoaura.com (nginx, static files only). Not used by the site itself: copy,
+# adjust paths and the TLS certificate paths, then `nginx -t`.
 # Mind nginx's add_header inheritance: a location that sets its own add_header drops the server-level ones,
 # so locations below use `expires` instead.
 
@@ -46,18 +46,11 @@ server {
     # Certbot webroot challenges must stay reachable; every other dotfile is hidden.
     location ^~ /.well-known/ { allow all; }
 
-    # The only PHP the site runs: the contact form, POST only.
-    location = /contacto.php {
-        limit_except POST { deny all; }
-        client_max_body_size 8k;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass unix:/run/php/php-fpm.sock;
-    }
+    # No PHP on this site.
     location ~ \.php$ { return 404; }
 
-    # Repo files that must never be served. Keep leads.jsonl outside the web root anyway (see config.example.php).
-    location ~ ^/(\.|deploy/|leads/|config|AGENTS|README|CODEOWNERS) { return 404; }
+    # Repo files that must never be served.
+    location ~ ^/(\.|deploy/|AGENTS|README|CODEOWNERS) { return 404; }
 
     location /fonts/ { expires 1y; }
     location /img/   { expires 7d; }
