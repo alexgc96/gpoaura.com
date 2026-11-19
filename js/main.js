@@ -30,7 +30,6 @@
   if (!form) return;
   var ok = document.getElementById("enviado");
   var err = document.getElementById("error");
-  var errDefault = err.textContent;
   var number = form.getAttribute("data-wa") || "";
   var topics = {
     auto: "cotizar un seguro de auto",
@@ -47,6 +46,12 @@
     el.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
+  // A missing field reads as empty instead of throwing, so the handler never dies silently.
+  function value(name) {
+    var el = form.elements[name];
+    return el ? el.value : "";
+  }
+
   // Collapse whitespace and drop control characters before the text goes into the URL.
   function clean(value) {
     return String(value || "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
@@ -57,7 +62,7 @@
     ok.classList.remove("is-visible");
     err.classList.remove("is-visible");
     // Honeypot: only bots fill it. Do nothing, no feedback.
-    if (form.elements.sitio.value) return;
+    if (value("sitio")) return;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -67,10 +72,10 @@
       show(err, "El formulario no está disponible en esta vista previa.");
       return;
     }
-    var name = clean(form.elements.nombre.value);
-    var details = clean(form.elements.detalles.value).slice(0, 300);
-    var email = clean(form.elements.correo.value);
-    var topic = topics[form.elements.seguro.value] || topics["no-se"];
+    var name = clean(value("nombre"));
+    var details = clean(value("detalles")).slice(0, 300);
+    var email = clean(value("correo"));
+    var topic = topics[value("seguro")] || topics["no-se"];
     var text = "Hola, soy " + name + ". Me gustaría " + topic + ".";
     if (details) text += " Detalles: " + details;
     if (email) text += " Mi correo: " + email;

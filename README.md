@@ -34,6 +34,6 @@ VPS (nginx, static files only, no php-fpm needed), deployed manually. The web ro
 4. Insurer-logo strip replaced with approved logos, or removed.
 5. Replace `WA_NUMBER` everywhere in `index.html` (three card links, the floating button and `data-wa` on the form) with the client's approved WhatsApp number: country code + number, digits only, for example `523312345678`. `grep -n WA_NUMBER index.html` must print nothing.
 6. Submit the form on the live site (valid, then honeypot filled) and confirm WhatsApp opens with the right text.
-7. `og:image` and an `og-preview.png` are still to do.
+7. Once DNS points here, paste the site link into WhatsApp and check the `og:image` card (`img/og.png`).
 
 Agents: read `AGENTS.md` first.
