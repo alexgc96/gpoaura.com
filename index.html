@@ -81,13 +81,14 @@
       </div>
     </div>
 
-    <form class="form" id="contacto" action="contacto.php" method="post" novalidate>
+    <!-- PRE-LAUNCH: data-wa is a placeholder, same as the wa.me links (country code + number, digits only). -->
+    <form class="form" id="contacto" data-wa="WA_NUMBER" novalidate>
       <div>
         <h2>Cotiza sin compromiso</h2>
-        <p class="form__sub">Te respondemos por WhatsApp o llamada, como prefieras.</p>
+        <p class="form__sub">Te respondemos por WhatsApp.</p>
       </div>
-      <p class="form__msg form__msg--ok" id="enviado" role="status">Listo, recibimos tu solicitud. Te contactamos muy pronto.</p>
-      <p class="form__msg form__msg--err" id="error" role="alert">No pudimos enviar tu solicitud. Revisa tus datos o escríbenos por WhatsApp.</p>
+      <p class="form__msg form__msg--ok" id="enviado" role="status">Abrimos WhatsApp con tu mensaje. Solo presiona enviar.</p>
+      <p class="form__msg form__msg--err" id="error" role="alert">No pudimos abrir WhatsApp. Revisa tus datos o escríbenos desde el botón de WhatsApp.</p>
       <div class="field">
         <label for="f-nombre">Nombre</label>
         <input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" required minlength="2" maxlength="80">
@@ -102,16 +103,16 @@
         </select>
       </div>
       <div class="field">
-        <label for="f-tel">WhatsApp o teléfono</label>
-        <input id="f-tel" name="telefono" type="tel" placeholder="33 0000 0000" autocomplete="tel" inputmode="tel" required maxlength="20">
+        <label for="f-correo">Correo (opcional)</label>
+        <input id="f-correo" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" maxlength="120">
       </div>
       <div class="hp" aria-hidden="true">
         <label for="f-sitio">No llenar este campo</label>
         <input id="f-sitio" name="sitio" type="text" tabindex="-1" autocomplete="off">
       </div>
-      <input type="hidden" name="t" value="">
-      <button class="btn btn--primary btn--block" type="submit">Enviar y recibir cotización</button>
-      <p class="form__note">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+      <button class="btn btn--primary btn--block" type="submit">Continuar en WhatsApp</button>
+      <p class="form__note">Se abrirá WhatsApp con tu mensaje listo para enviar. Al continuar aceptas nuestro <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+      <noscript><p class="form__note">Este formulario necesita JavaScript. Puedes escribirnos directo desde el botón de WhatsApp.</p></noscript>
     </form>
   </div>
 </section>

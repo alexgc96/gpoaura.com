@@ -3,5 +3,3 @@
 node_modules/
 # raw client logo dumps live outside the repo; only cleaned assets go in img/
 _originals/
-config.php
-leads/
