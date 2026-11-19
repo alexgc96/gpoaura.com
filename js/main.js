@@ -73,13 +73,15 @@
       return;
     }
     var name = clean(value("nombre"));
-    var details = clean(value("detalles")).slice(0, 300);
+    var details = Array.from(clean(value("detalles"))).slice(0, 300).join("");
     var email = clean(value("correo"));
     var topic = topics[value("seguro")] || topics["no-se"];
     var text = "Hola, soy " + name + ". Me gustaría " + topic + ".";
     if (details) text += " Detalles: " + details;
     if (email) text += " Mi correo: " + email;
+    // Encode first: if it ever throws, the success message must not show.
+    var url = "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
     show(ok);
-    window.location.href = "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
+    window.location.href = url;
   });
 })();
