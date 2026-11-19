@@ -68,9 +68,11 @@
       return;
     }
     var name = clean(form.elements.nombre.value);
+    var details = clean(form.elements.detalles.value).slice(0, 300);
     var email = clean(form.elements.correo.value);
     var topic = topics[form.elements.seguro.value] || topics["no-se"];
     var text = "Hola, soy " + name + ". Me gustaría " + topic + ".";
+    if (details) text += " Detalles: " + details;
     if (email) text += " Mi correo: " + email;
     show(ok);
     window.location.href = "https://wa.me/" + number + "?text=" + encodeURIComponent(text);

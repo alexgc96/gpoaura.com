@@ -10,7 +10,7 @@ Landing page for Aura Seguros, an insurance promotoría in Guadalajara, on the d
 - Branding: the visible brand is "aura SEGUROS" (navy and orange crescent mark, gold wordmark line). Design source is a mockup (desktop, mobile and brand boards) kept outside this repo. Palette: navy `#2A4496` / `#1B2E7B` / `#14245E`, orange `#EB8330`, gold `#C99A3F` / `#D6A33A`. Type: Nunito (headings) and Nunito Sans (body). Do not invent a new brand. Client logos are low-res; use the SVG recreation of the mark, and vectorized files go in `img/`.
 - Services shown: Auto, Vida, Salud. More (for example Hogar) may be added after Alex talks with the client; do not add services that are not confirmed.
 - Hosting: a VPS with nginx serving static files (no PHP). The GitHub Pages preview works for the whole site, but the form and WhatsApp links stay disabled there while `WA_NUMBER` is a placeholder, so the form must fail visibly, not silently.
-- Contact form: nombre, seguro, optional correo. No server: JS builds a `wa.me` text and opens WhatsApp. Keep the honeypot, clean the text before URL-encoding, and fail visibly when the number is a placeholder. The main promotoría landing (another repo) has its own PHP form; do not port it here.
+- Contact form: nombre, seguro, optional detalles (free text, max 300 characters, with a no-health-data hint) and optional correo. No server: JS builds a `wa.me` text and opens WhatsApp. Keep the honeypot, clean the text before URL-encoding, and fail visibly when the number is a placeholder. The main promotoría landing (another repo) has its own PHP form; do not port it here.
 - DNS and the domain's mail setup are not part of this repo.
 
 ## Treat this repo as public

@@ -20,7 +20,7 @@ While `WA_NUMBER` is a placeholder the form shows an error instead of opening Wh
 
 ## Contact form
 
-No data reaches a server of ours. `js/main.js` builds `Hola, soy <nombre>. Me gustaría cotizar un seguro de <tipo>. Mi correo: <correo>` (correo optional), URL-encodes it and navigates to `https://wa.me/<data-wa>?text=...`. A honeypot field (`sitio`) makes the script do nothing when filled. The number comes from `data-wa` on the form; it is not a secret, but it stays a placeholder in the public repo until launch. Without JS the form shows a note pointing to the WhatsApp button.
+No data reaches a server of ours. `js/main.js` builds `Hola, soy <nombre>. Me gustaría cotizar un seguro de <tipo>. Detalles: <texto>. Mi correo: <correo>` (detalles, max 300 characters, and correo are optional), URL-encodes it and navigates to `https://wa.me/<data-wa>?text=...`. A honeypot field (`sitio`) makes the script do nothing when filled. The number comes from `data-wa` on the form; it is not a secret, but it stays a placeholder in the public repo until launch. Without JS the form shows a note pointing to the WhatsApp button.
 
 ## Deploy
 
